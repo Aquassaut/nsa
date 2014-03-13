@@ -2,8 +2,8 @@
     "zones" : [1, 2, 3, 4, 5],
     "capteurs" : [
         {
-            "zones" : [1, 3, 4],
-            "lifetime" : 6
+            "zones" : [1, 3, 8],
+            "lifetime" : 5
         },{
             "zones" : [2, 4, 5],
             "lifetime" : 6
