@@ -1,8 +1,12 @@
 #!/usr/bin/env ruby
+
+require "json"
+
 require_relative "fileHandler"
 require_relative "stdinHandler"
 require_relative "randomHandler"
 require_relative "dataModel"
+require_relative "configGenerator"
 
 def usage
     puts "usage : #{$0} [ --stdin (-s) | --seed=seed | file ]"
@@ -23,3 +27,17 @@ elsif $*.size == 1
 else
     usage
 end
+
+def configpp(conf)
+    tojsonify = []
+
+    conf.each do |pair|
+        tojsonify.push pair.map { |x| x.getName }
+    end
+    return JSON.generate tojsonify
+
+end
+
+configurations = generateConfigurations donnees
+#puts configpp(configurations)
+puts configurations.inspect

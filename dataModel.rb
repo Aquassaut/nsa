@@ -4,6 +4,12 @@ class Capteur
         @zones = zones
         @lifetime = lifetime
     end
+    def getZones()
+        @zones
+    end
+    def getName()
+        @nom
+    end
 end
 
 class Donnees
@@ -16,5 +22,11 @@ class Donnees
     end
     def getZones()
         @zones
+    end
+    def getCapteurs()
+        @capteurs
+    end
+    def size()
+        @capteurs.size
     end
 end

@@ -9,7 +9,15 @@ def getDonneesFromStdin
         zones = $stdin.gets.chomp().split().map { |e|  e.to_i }
         puts "#{zones}"
 
+        puts "Entrez la durée de vie du capteur"
+        lifetime = $stdin.gets.chomp.to_i
+
+        c = Capteur.new i, zones, lifetime
+        d.addCapteur c
+
         puts "Voulez vous ajouter un capteur ?"
         over = ! ['Y', 'O'].member?($stdin.gets.upcase().chomp)
+        i += 1
     end
+    return d
 end

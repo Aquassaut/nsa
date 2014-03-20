@@ -16,4 +16,5 @@ def getDonneesFromFile(file)
         d.addCapteur(Capteur.new(nom, x['zones'], x['lifetime']))
         i += 1
     end
+    return d
 end

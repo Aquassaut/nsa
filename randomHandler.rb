@@ -23,12 +23,8 @@ def getDonneesFromRandom(seed)
     for i in 0..ncapteurs
         czones = (0..nzones).to_a.sample(prng.rand(nzones), random:prng)
         lifetime = prng.rand 10 #il faut que ça aille JUSQU'A 1000 BOBBY
-        c = Capteur.new 1, czones, lifetime
+        c = Capteur.new i, czones, lifetime
         d.addCapteur c
     end
-
-
-    puts(d.inspect)
-
-
+    return d
 end
