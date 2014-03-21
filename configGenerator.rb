@@ -1,23 +1,25 @@
 require 'set'
 
 def methodeTotale(donnees)
+    sols = []
     baskets = {}
     #on initialise le hash
     donnees.getZones.each do |zone|
-        baskets['zone'] = []
+        baskets[zone] = []
     end
     #on assigne les capteurs à un ou plusieurs backets
     donnees.getCapteurs.each do |capt|
         capt.getZones.each do |cz|
-            baskets[cz.to_s] =  capt
+            baskets[cz].push capt
         end 
     end
-    return baskets
+    sols = baskets
+                .values
                 .reduce { |x, y| x.product y }
-                .map    { |x| x.flatten.uniq }
-
-
-
+                .map    { |x| Set.new x.flatten }
+                .sort   { |x, y| x.size <=> y.size }
+                .uniq
+    return sols
 end
 
 def methode1(donnees)
@@ -41,5 +43,5 @@ end
 
 def generateConfigurations(donnees)
     return methodeTotale donnees
-    #return methode1(donnees)
+    return methode1(donnees)
 end

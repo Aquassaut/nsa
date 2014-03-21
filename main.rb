@@ -39,5 +39,5 @@ def configpp(conf)
 end
 
 configurations = generateConfigurations donnees
-#puts configpp(configurations)
-puts configurations.inspect
+puts configpp(configurations)
+#puts configurations.inspect
