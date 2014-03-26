@@ -15,8 +15,8 @@ def getDonneesFromRandom(seed)
 
     prng = Random.new(seed)
 
-    nzones = prng.rand 10 #il faut que ça aille JUSQU'A 1000 BOBBY
-    ncapteurs = prng.rand 10 #il faut que ça aille JUSQU'A 1000 BOBBY
+    nzones = prng.rand 1000 #il faut que ça aille JUSQU'A 1000 BOBBY
+    ncapteurs = prng.rand 1000 #il faut que ça aille JUSQU'A 1000 BOBBY
 
     d = Donnees.new (0..nzones).to_a
 
@@ -30,7 +30,7 @@ def getDonneesFromRandom(seed)
         for i in 0..ncapteurs
             czones = (0..nzones).to_a.sample(prng.rand(nzones - 1) + 1, random:prng)
             czones.each { |x| zonesCouvertes.add x } 
-            lifetime = prng.rand 10 #il faut que ça aille JUSQU'A 1000 BOBBY
+            lifetime = prng.rand 1000 #il faut que ça aille JUSQU'A 1000 BOBBY
             c = Capteur.new i, czones, lifetime
             tempd.push c
         end
