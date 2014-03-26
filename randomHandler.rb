@@ -26,6 +26,7 @@ def getDonneesFromRandom(seed)
 
     while zonesCouvertes != zonesACouvrir do
         zonesCouvertes.clear
+        tempd.clear
         for i in 0..ncapteurs
             czones = (0..nzones).to_a.sample(prng.rand(nzones - 1) + 1, random:prng)
             czones.each { |x| zonesCouvertes.add x } 

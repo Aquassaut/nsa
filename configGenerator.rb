@@ -7,8 +7,7 @@ require 'set'
 # ensuite on fait un produit cartesien des paniers pour avoir toutes les
 # configurations.
 def methodeTotale(donnees)
-    puts donnees.inspect
-    sols = []
+    sols = Set.new
     baskets = {}
     #on initialise le hash
     donnees.getZones.each do |zone|
@@ -20,13 +19,11 @@ def methodeTotale(donnees)
             baskets[cz].push capt
         end 
     end
-    sols = baskets
-                .values
-                .reduce { |x, y| x.product y }
-                .map    { |x| Set.new x.flatten }
-                .sort   { |x, y| x.size <=> y.size }
-                .uniq
-    return sols
+    vals = baskets.values
+    vals.delete_at(0).product(*vals) do |p|
+        sols.add p.sort { |s, t| s.getName <=> t.getName }.uniq
+    end
+    return sols.to_a
 end
 
 # Ici, l'idée c'est de prendre le maximum de paire de capteurs qui voient
@@ -34,7 +31,7 @@ end
 # scénarios ou le nombre de zones / sensor est proche du nombre de zones total
 # O(n^2) 
 def methode1(donnees)
-    sols = []
+    sols = Set.new
     zones = Set.new(donnees.getZones)
 
     for i in 0..(donnees.size - 1)
@@ -44,11 +41,11 @@ def methode1(donnees)
             tmpzones = Set.new(capt1.getZones)
             tmpzones.merge(capt2.getZones)
             if tmpzones == zones
-                sols.push [capt1, capt2]
+                sols.add [capt1, capt2]
             end
         end
     end
-    return sols
+    return sols.to_a
 
 end
 
@@ -56,29 +53,29 @@ end
 # on passe à la liste suivante quand toutes les zones sont remplies
 # O(n)
 def methode2(donnees)
-    sols = []
+    sols = Set.new
     zones = Set.new donnees.getZones
     tzones = Set.new
-    tconf = []
+    tconf = Set.new
     donnees.getCapteurs.each do |x|
         #on ajoute le capteur à la configuration
-        tconf.push x
+        tconf.add x
         #On ajoute les zones du capteur aux 
         x.getZones.each do |z|
             tzones.add z
         end
         if zones == tzones
-            sols.push tconf.clone
+            sols.add tconf.clone
             tzones.clear
             tconf.clear
         end
     end
-    return sols
+    return sols.to_a
 end
 
 #La même avec un ordre de pick random
 def methode2random(donnees)
-    sols = []
+    sols = Set.new
     zones = Set.new donnees.getZones
     tzones = Set.new
     tconf = []
@@ -93,12 +90,12 @@ def methode2random(donnees)
             tzones.add z
         end
         if zones == tzones
-            sols.push tconf.clone
+            sols.add tconf.clone
             tzones.clear
             tconf.clear
         end
     end
-    return sols
+    return sols.to_a
 end
 
 #Ici, l'idée c'est de découper les capteurs en deux
@@ -107,62 +104,65 @@ end
 #les capteurs a beaucoup de zones et on les complète avec
 #des capteurs à peu de zones
 def methode3(donnees)
-    sols = []
+    sols = Set.new
     zones = Set.new donnees.getZones
 
     sortedCapteurs = donnees.getCapteurs.sort {|x, y| x.getZones.size <=> y.getZones.size }
     #on met le "pivot" au milieu, ça peut être amélioré
     pivot = sortedCapteurs.size / 2
-    petitsCapteurs = sortedCapteurs.slice 0, pivot
-    grosCapteurs = sortedCapteurs.slice pivot, sortedCapteurs.size - 1
+    petitsCapteurs = sortedCapteurs.slice(0, pivot).clone
+    grosCapteurs = sortedCapteurs.slice(pivot, sortedCapteurs.size - 1).clone
 
     grosCapteurs.each do |x|
-        sol = [ x ]
+        sol = Set.new [ x ]
         tzones = Set.new x.getZones
         petitsCapteurs.each do |y|
             break if tzones == zones
             unless tzones.superset? Set.new y.getZones
                 y.getZones.each { |v| tzones.add v }
-                sol.push petitsCapteurs.delete y
+                sol.add petitsCapteurs.delete y
             end
         end
-        sols.push sol if tzones == zones
+        sols.add sol if tzones == zones
     end
-    return sols
+    return sols.to_a
 end
 
 #La méthode 3 mais avec un pick random
 def methode3random(donnees)
-    sols = []
+    sols = Set.new
     zones = Set.new donnees.getZones
 
     sortedCapteurs = donnees.getCapteurs.sort {|x, y| x.getZones.size <=> y.getZones.size }
     #on met le "pivot" au milieu, ça peut être amélioré
     pivot = sortedCapteurs.size / 2
-    petitsCapteurs = sortedCapteurs.slice 0, pivot
-    grosCapteurs = sortedCapteurs.slice pivot, sortedCapteurs.size - 1
+    petitsCapteurs = sortedCapteurs.slice(0, pivot).clone.shuffle
+    grosCapteurs = sortedCapteurs.slice(pivot, sortedCapteurs.size - 1).clone.shuffle
 
-    grosCapteurs.shuffle.each do |x|
-        sol = [ x ]
+    grosCapteurs.each do |x|
+        sol = Set.new [ x ]
         tzones = Set.new x.getZones
-        petitsCapteurs.shuffle.each do |y|
+        petitsCapteurs.each do |y|
             break if tzones == zones
             unless tzones.superset? Set.new y.getZones
                 y.getZones.each { |v| tzones.add v }
-                sol.push petitsCapteurs.delete y
+                sol.add petitsCapteurs.delete y
             end
         end
-        sols.push sol if tzones == zones
+        sols.add sol if tzones == zones
     end
-    return sols
+    return sols.to_a
 
 end
 
 def generateConfigurations(donnees)
-    return methodeTotale donnees
-    return methode3random donnees
-    return methode3 donnees
+
+
     return methode2random donnees
-    return methode2 donnees
-    return methode1 donnees
+    #return methode2 donnees
+
+    #return methodeTotale donnees
+    #return methode3random donnees
+    #return methode3 donnees
+    #return methode1 donnees
 end
