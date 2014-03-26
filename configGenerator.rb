@@ -7,6 +7,7 @@ require 'set'
 # ensuite on fait un produit cartesien des paniers pour avoir toutes les
 # configurations.
 def methodeTotale(donnees)
+    puts donnees.inspect
     sols = []
     baskets = {}
     #on initialise le hash
