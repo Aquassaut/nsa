@@ -16,6 +16,12 @@ class Capteur
     def hash()
         @nom.hash
     end
+
+    def inspect()
+        "{nom:" + @nom.inspect +
+        ",zones:" + @zones.inspect +
+        ",lifetime:" + @lifetime.inspect + "}"
+    end
 end
 
 class Donnees

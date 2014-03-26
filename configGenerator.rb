@@ -152,14 +152,27 @@ def methode3random(donnees)
         sols.add sol if tzones == zones
     end
     return sols.to_a
+end
 
+def filterElementaire(solutions)
+    banned = []
+    solutions.each do |sol|
+        s = Set.new sol.map {|u| u.getName}
+        solutions.each do |test|
+            t = Set.new test.map {|u| u.getName}
+            if s.proper_subset? t
+                banned.push test
+            end
+        end
+    end
+    return solutions - banned
 end
 
 def generateConfigurations(donnees)
-    return methodeTotale donnees
-    #return methode3random donnees
-    #return methode3 donnees
-    #return methode2random donnees
-    return methode2 donnees
-    return methode1 donnees
+    return filterElementaire methodeTotale donnees
+    #return filterElementaire methode2random donnees
+    #return filterElementaire methode2 donnees
+    #return filterElementaire methode3random donnees
+    #return filterElementaire methode3 donnees
+    #return filterElementaire methode1 donnees
 end
