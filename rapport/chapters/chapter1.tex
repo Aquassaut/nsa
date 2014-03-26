@@ -1,0 +1,37 @@
+\chapter{Données}
+
+\paragraph{}
+    Pour notre programme, nous avons décidé de permettre à l'utilisateur
+    d'entrer des données de trois façon
+    \begin{itemize}
+        \item Avec un fichier
+        \item Avec une génération aléatoire de données
+        \item Interactivement
+    \end{itemize}
+
+    \subsection{Fichier}
+        Le fichier, pour être interpreté correctemenet par notre programme
+        doit être au format JSON et comprendre :
+        \begin{itemize}
+            \item Une liste de zones, nommée "zones"
+            \item Une liste de capteurs nommée "capteurs"
+        \end{itemize}
+        De plus chaque capteur doit comporter les champs suivants :
+        \begin{itemize}
+            \item Une liste de zones couvertes, nommée "zones"
+            \item Une durée de vie, nommée "lifetime"
+        \end{itemize}
+
+    \subsection{Génération aléatoire}
+        L'utilisateur peut demander à procéder à une génération aléatoire des
+        données soit en fournissant une graine qui permettra d'obtenir plusieurs
+        fois le même résultat, soit en laissant l'application choisir une graîne
+        pour lui, auquel cas l'application affichera la graîne pour que
+        l'utilisateur puisse la réutiliser.
+
+
+    \subsection{Interactivement}
+        Dans ce mode de création de données, l'utilisateur rentre les
+        informations relatives aux zones, puis à chaque capteur, de façon
+        manuelle. Ce mode de création est déconseillé car il est relativement
+        chronophage.

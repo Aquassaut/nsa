@@ -40,15 +40,5 @@ def configpp(conf)
 end
 
 configurations = generateConfigurations donnees
-puts donnees.inspect
-puts configpp(configurations)
-#=========TEST====================
-test = Array.new
-for i in 0..3
-    test.push(configurations[i])
-end
-#================================
 
-computeOptimalSolution(donnees, test) #test à remplacer par connfigurations
-
-#puts confgurations.inspect
+computeOptimalSolution(donnees, configurations)

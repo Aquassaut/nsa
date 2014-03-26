@@ -1,0 +1,94 @@
+\chapter{Configurations}
+
+\paragraph{}
+    Afin de trouver des configurations élémentaires à analyser, nous avons mis
+    au point plusieurs méthodes de calcul permettant de trouver un équilibre
+    entre la précision souhaitée et le temps d'execution.
+    Les méthodes que nous avons développées sont les suivantes.
+    \begin{itemize}
+        \item L'algorithme général
+        \item La méthode des paires
+        \item La méthode accumulative
+        \item La méthode complétive
+    \end{itemize}
+
+\subsection{L'algorithme général}
+    \paragraph{}
+    Cet algorithme permet de trouver toutes les configurations pour un jeu de
+    données.
+    Il consiste à créer autant d'ensembles qu'il y a de zones à observer.
+    Ceci fait, on attribue ajoute chaque capteur dans le ou les seau(x)
+    correspondant à la ou aux zones que ce capteur observe.
+    Enfin, nous calculons le produit cartésien de ces ensemble pour trouver la
+    solution finale.
+    \begin{description}
+        \item[Forces de l'algorithme]\hfill \\
+            Cet algorithme permet de trouver la liste exhaustive des solutions
+            possibles.
+        \item[Défauts de l'algorithme]\hfill \\
+            Cet algorithme est très peu efficace du point de vue du temps
+            d'execution, le produit cartésien ayant une complexité relativement
+            élevée.
+    \end{description}
+
+\subsection{La méthode des paires}
+    \paragraph{}
+        Cet algorithme consiste à chercher toutes les paires de capteurs formant
+        des configurations valides.
+        Pour ce faire, nous considérons un capteurs, et cherchons parmi les
+        autres capteurs tous les capteur pouvant former une configuration en
+        conjonction.
+        Nous continuons à proceder de la sorte jusqu'à avoir obtenu toutes les
+        paires
+    \begin{description}
+        \item[Forces de l'algorithme]\hfill \\
+            Cet algorithme permet de trouver la liste exhaustive des solutions
+            possibles dans son domaine d'application, il s'agit donc d'un bon
+            algorithme si les contraintes imposent de minimiser le nombre de
+            capteurs allumés simultanément.
+        \item[Défauts de l'algorithme]\hfill \\
+            Cet algorithme ne trouvera pas ou peu de configuration valable dans
+            les cas où l'on a beaucoup de zone et que la portée des capteurs est
+            limitée.
+    \end{description}
+
+\subsection{La méthode accumulative}
+    \paragraph{}
+        Cet algorithme vise à obtenir une complexité très faible (O(n)) en ne
+        parcourant qu'une fois la liste des capteurs.
+        Elle consiste à parcourir la liste de capteurs en les ajoutant l'un
+        après l'autre à la configuration courante, jusqu'à ce que l'ensemble des
+        capteurs soient couvert. On passe alors à la configuration suivante et
+        on recommence à partir du capteur suivant.
+
+    \begin{description}
+        \item[Forces de l'algorithme]\hfill \\
+            Cet algorithme a une très faible complexité, et permettra toujours
+            de trouver au moins une configuration.
+        \item[Défauts de l'algorithme]\hfill \\
+            Le nombre de configurations trouvables avec cet algorithme est
+            relativement faible.
+    \end{description}
+
+\subsection{La méthode complétive}
+    \paragraph{}
+        Cet algorithme consiste à trouver les capteurs observant le plus de
+        zones et de les compléter par des capteurs de moins grande portée pour
+        obtenir des configurations.
+        Ainsi, nous classons les capteurs en deux groupes, en fonction du nombre
+        de zones couvertes par ceux ci, et pour chaque capteur à grande portée,
+        nous lui ajoutons autant de capteur de la liste des capteurs à petite
+        portée.
+
+    \begin{description}
+        \item[Forces de l'algorithme]\hfill \\
+            Cette méthode permet de trouver beaucoup de configurations si le
+            nombre de zones couvertes par les capteurs connait de grande
+            variation mais que les zones sont réparties de façon homogène entre
+            les capteurs.
+        \item[Défauts de l'algorithme]\hfill \\
+            L'algorithme ne permet pas toujours de trouver de configurations,
+            en particulier lorsque l'on a des capteurs à grande portée sur
+            l'ensemble des zones mais que les capteurs à petite portée ne sont
+            présente que sur un petit sous-ensemble des zones traitées.
+    \end{description}
