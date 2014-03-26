@@ -1,4 +1,5 @@
 class Capteur
+
     def initialize(nom, zones, lifetime)
         @nom = nom
         @zones = zones
@@ -12,6 +13,8 @@ class Capteur
     end
     def getLifetime()
         @lifetime
+    def hash()
+        @nom.hash
     end
 end
 
