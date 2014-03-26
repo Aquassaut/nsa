@@ -7,6 +7,7 @@ require_relative "stdinHandler"
 require_relative "randomHandler"
 require_relative "dataModel"
 require_relative "configGenerator"
+require_relative "glpkHandler"
 
 def usage
     puts "usage : #{$0} [ --stdin (-s) | --seed=seed | file ]"
@@ -39,5 +40,15 @@ def configpp(conf)
 end
 
 configurations = generateConfigurations donnees
+puts donnees.inspect
 puts configpp(configurations)
-#puts configurations.inspect
+#=========TEST====================
+test = Array.new
+for i in 0..3
+    test.push(configurations[i])
+end
+#================================
+
+computeOptimalSolution(donnees, test) #test à remplacer par connfigurations
+
+#puts confgurations.inspect

@@ -160,9 +160,9 @@ end
 
 def generateConfigurations(donnees)
     return methodeTotale donnees
-    return methode3random donnees
-    return methode3 donnees
-    return methode2random donnees
+    #return methode3random donnees
+    #return methode3 donnees
+    #return methode2random donnees
     return methode2 donnees
     return methode1 donnees
 end

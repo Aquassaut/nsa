@@ -10,6 +10,9 @@ class Capteur
     def getName()
         @nom
     end
+    def getLifetime()
+        @lifetime
+    end
 end
 
 class Donnees
