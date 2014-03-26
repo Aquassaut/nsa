@@ -13,6 +13,7 @@ class Capteur
     end
     def getLifetime()
         @lifetime
+    end
     def hash()
         @nom.hash
     end
